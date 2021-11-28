@@ -123,7 +123,7 @@ func getArticle(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(articles)
 }
 //create new book
-func createArticles(w http.ResponseWriter, r *http.Request) {
+func createArticle(w http.ResponseWriter, r *http.Request) {
 	
 	w.Header().Set("Content-Type", "application/json")
 
@@ -217,7 +217,7 @@ func main() {
 	//Route Handlers
 	r.HandleFunc("/api/articles", getArticles).Methods("GET")
 	r.HandleFunc("/api/article", getArticle).Methods("GET")
-	r.HandleFunc("/api/articles", createArticles).Methods("POST")
+	r.HandleFunc("/api/article", createArticle).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
