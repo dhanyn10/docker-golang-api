@@ -7,7 +7,7 @@ Berikut ini list dari request yang bisa digunakan beserta contoh hasilnya (dalam
     ```
     http://localhost:8000/api/article?author=jostein&title=dunia suphie&body=novel tentang dunia filsafat untuk anak-anak
     ```
-- get article by parameter nama kolom dan nilainya
+- get article dengan sorting berdasar parameter nama kolom `param` dan nilainya `query`
     ```
     http://localhost:8000/api/article?param=author&query=suparman
     ```
