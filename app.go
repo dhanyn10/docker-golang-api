@@ -91,19 +91,21 @@ func getArticle(w http.ResponseWriter, r *http.Request) {
         panic(err)
     }
 
-	query, ok := r.URL.Query()["query"]
-	if !ok || len(query[0]) < 1 {
-		fmt.Println("error in keys %s", query)
+	param, param_ok := r.URL.Query()["param"]
+	query, query_ok := r.URL.Query()["query"]
+	if !param_ok|| !query_ok || len(query[0]) < 1 || len(param[0]) < 1{
+		fmt.Println("error in keyword")
 		return
 	}
-	searchTitle := `SELECT * FROM article WHERE title = $1`
-    resultTitle, e := db.Query(searchTitle, query[0])
+	search := fmt.Sprintf("SELECT * FROM article WHERE %s = '%s'", param[0], query[0])
+	fmt.Println(param[0], query[0])
+    result, e := db.Query(search)
     CheckError(e)
 
 	var articles []Article
 
 	//append data dari search title
-	for resultTitle.Next() {
+	for result.Next() {
 		
 		var id int
 		var author string
@@ -112,7 +114,7 @@ func getArticle(w http.ResponseWriter, r *http.Request) {
 		var created string
 
 	
-		err = resultTitle.Scan(&id, &author, &title, &body, &created)
+		err = result.Scan(&id, &author, &title, &body, &created)
 		CheckError(err)
 		articles = append(articles, Article{Id: id, Author: author, Title: title, Body: body, Created: created})
 	}
