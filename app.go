@@ -47,7 +47,7 @@ type Article struct {
 // Init books var as a slice book struct
 // var books []Book
 
-//get All Books
+//get All Articles
 func getArticles(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -57,7 +57,7 @@ func getArticles(w http.ResponseWriter, r *http.Request) {
 	// open database
 	db, err := sql.Open("postgres", psqlconn)
 
-	rows, err := db.Query(`SELECT "id", "author", "title", "body", "created" FROM "article"`)
+	rows, err := db.Query(`SELECT * FROM "article" order by created DESC`)
 	CheckError(err)
 	
 	var articles []Article
