@@ -28,3 +28,22 @@ Berikut ini list dari request yang bisa digunakan beserta contoh hasilnya (dalam
     ```
     http://localhost:8000/api/articles
     ```
+    hasil
+    ```
+    [
+        {
+            "id": 21,
+            "author": "jostein",
+            "title": "dunia suphie",
+            "body": "novel tentang dunia filsafat untuk anak-anak",
+            "created": "2021-11-28T16:13:20.703631Z"
+        },
+        {
+            "id": 20,
+            "author": "suparman",
+            "title": "perjuangan",
+            "body": "perang dunia dua menuju akhir",
+            "created": "2021-11-28T15:59:09.658958Z"
+        }
+    ]
+    ```
