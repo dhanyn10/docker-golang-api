@@ -177,20 +177,20 @@ func main() {
 	// books = append(books, Book{ID: "2", Isbn: "436444", Title: "Book two", Author: &Author{Firstname: "Samuel", Lastname: "Etoo"}})
 
         // connection string
-		psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+		// psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
          
-        // open database
-		db, err := sql.Open("postgres", psqlconn)
-		CheckError(err)
+        // // open database
+		// db, err := sql.Open("postgres", psqlconn)
+		// CheckError(err)
 		
-			// close database
-		defer db.Close()
+		// 	// close database
+		// defer db.Close()
 	
-			// check db
-		err = db.Ping()
-		CheckError(err)
+		// 	// check db
+		// err = db.Ping()
+		// CheckError(err)
 	
-		fmt.Println("Connected!")
+		// fmt.Println("Connected!")
 	// db, err := sql.Open("mysql", "root@tcp(127.0.0.1:3306)/api_golang")
 	// if err != nil {
 	// 	panic(err.Error())
