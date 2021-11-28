@@ -47,3 +47,4 @@ Berikut ini list dari request yang bisa digunakan beserta contoh hasilnya (dalam
         }
     ]
     ```
+- file database diimpor dari pgadmin4 dalam format csv
