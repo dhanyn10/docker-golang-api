@@ -79,9 +79,46 @@ func getArticles(w http.ResponseWriter, r *http.Request) {
 	CheckError(err)
 	json.NewEncoder(w).Encode(articles)
 }
-//get single book
-func getBook(w http.ResponseWriter, r *http.Request) {
-	//
+//get single article
+func getArticle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	// connection string
+	psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+		
+	// open database
+	db, err := sql.Open("postgres", psqlconn)
+    if err != nil {
+        panic(err)
+    }
+
+	query, ok := r.URL.Query()["query"]
+	if !ok || len(query[0]) < 1 {
+		fmt.Println("error in keys %s", query)
+		return
+	}
+	searchTitle := `SELECT * FROM article WHERE title = $1`
+    resultTitle, e := db.Query(searchTitle, query[0])
+    CheckError(e)
+
+	var articles []Article
+
+	//append data dari search title
+	for resultTitle.Next() {
+		
+		var id int
+		var author string
+		var title string
+		var body string
+		var created string
+
+	
+		err = resultTitle.Scan(&id, &author, &title, &body, &created)
+		CheckError(err)
+		articles = append(articles, Article{Id: id, Author: author, Title: title, Body: body, Created: created})
+	}
+
+	CheckError(err)
+	json.NewEncoder(w).Encode(articles)
 }
 //create new book
 func createArticles(w http.ResponseWriter, r *http.Request) {
@@ -125,7 +162,7 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 
 func CheckError(err error) {
     if err != nil {
-        panic(err)
+        fmt.Println(err)
     }
 }
 
@@ -177,10 +214,8 @@ func main() {
 	// }
 	//Route Handlers
 	r.HandleFunc("/api/articles", getArticles).Methods("GET")
-	r.HandleFunc("/api/books/{id}", getBook).Methods("GET")
+	r.HandleFunc("/api/article", getArticle).Methods("GET")
 	r.HandleFunc("/api/articles", createArticles).Methods("POST")
-	r.HandleFunc("/api/books{id}", updateBook).Methods("PUT")
-	r.HandleFunc("/api/books{id}", deleteBook).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
