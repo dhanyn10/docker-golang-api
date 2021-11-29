@@ -15,19 +15,12 @@ import (
 )
 
 const (
-    host     = "localhost"
+    host     = "db"
     port     = 5432
     user     = "admin"
     password = "admin"
-    dbname   = "api_golang"
+    dbname   = "admin"
 )
-// Book Struct(Model)
-// type Book struct {
-// 	ID 		string	`json:"id"`
-// 	Isbn	string	`json:"isbn"`
-// 	Title	string	`json:"title"`
-// 	// Author	*Author `json:"author"`
-// }
 
 // Article Struct(Model)
 type Article struct {
@@ -172,49 +165,6 @@ func main() {
 	//init router
 	r:= mux.NewRouter()
 
-	//mock Data - @todo - implement DB
-	// books = append(books, Book{ID: "1", Isbn: "436455", Title: "Book One", Author: &Author{Firstname: "John", Lastname: "Doe"}})
-	// books = append(books, Book{ID: "2", Isbn: "436444", Title: "Book two", Author: &Author{Firstname: "Samuel", Lastname: "Etoo"}})
-
-        // connection string
-		// psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
-         
-        // // open database
-		// db, err := sql.Open("postgres", psqlconn)
-		// CheckError(err)
-		
-		// 	// close database
-		// defer db.Close()
-	
-		// 	// check db
-		// err = db.Ping()
-		// CheckError(err)
-	
-		// fmt.Println("Connected!")
-	// db, err := sql.Open("mysql", "root@tcp(127.0.0.1:3306)/api_golang")
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-
-	// defer db.Close()
-
-	// getarticle, err := db.Query("SELECT * FROM article")
-
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	// defer getarticle.Close()
-
-	// for getarticle.Next() {
-	// 	var article Article
-
-	// 	err = getarticle.Scan(&article.Author)
-	// 	if err != nil {
-	// 		panic(err.Error())
-	// 	}
-	// 	fmt.Println(article.Author)
-	// }
-	//Route Handlers
 	r.HandleFunc("/api/articles", getArticles).Methods("GET")
 	r.HandleFunc("/api/article", getArticle).Methods("GET")
 	r.HandleFunc("/api/article", createArticle).Methods("POST")
