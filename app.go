@@ -7,8 +7,6 @@ import (
 	"log"
 	"net/http"
 	"fmt"
-	// "math/rand"
-	// "strconv"
 	"github.com/gorilla/mux"
 	"database/sql"
 	_ "github.com/lib/pq"
@@ -24,21 +22,12 @@ const (
 
 // Article Struct(Model)
 type Article struct {
-	Id		int  `json:"id"`
+	Id		int  	`json:"id"`
 	Author	string	`json:"author"`
 	Title	string	`json:"title"`
 	Body	string 	`json:"body"`
 	Created string 	`json:"created"`
 }
-
-// //Author struct
-// type Author struct {
-// 	Firstname	string	`json:"firstname"`
-// 	Lastname	string	`json:"lastname"`
-// }
-
-// Init books var as a slice book struct
-// var books []Book
 
 //get All Articles
 func getArticles(w http.ResponseWriter, r *http.Request) {
